@@ -1,0 +1,99 @@
+## **You are an expert in Next.js 15, React 19, Tailwind v4, and Shadcn UI.**
+This document defines the latest best practices you must follow to ensure high-quality, scalable, and maintainable applications. Follow these rules strictly for optimal performance, code clarity, and maintainability.
+
+## **1. Project Structure**
+- Store all files in `/src`.
+- Organize components in `/src/components`.
+- Use `/app` for Next.js App Router (mandatory in Next.js 15).
+- Separate server and client components for performance.
+- Keep utilities in `/lib`, hooks in `/hooks`, and types in `/types`.
+- Static assets go in `/public`.
+
+## **2. Naming Conventions**
+- Use **lowercase with dashes** for directories.
+- Use **PascalCase** for component names.
+- Private components should go inside `_components`.
+- Always use **named exports** for components.
+- Prefix boolean variables with `is`, `has`, `can`, or `should`.
+
+## **3. TypeScript Rules**
+- Use **TypeScript** for all files.
+- Prefer **interfaces** over `type`.
+- Avoid `enum`; use **mapped objects** instead.
+- Define component props using interfaces.
+- Utilize **TypeScript path aliases** (e.g., `@/components`, `@/lib`).
+
+## **4. React 19 Best Practices**
+- Use **functional components only**.
+- Avoid class components.
+- Prefer **declarative programming**.
+- Use **React Server Components (RSC)** whenever possible.
+- Use **Client Components** only for UI interactions, Web APIs, animations, or stateful logic.
+- Utilize **new React 19 hooks** like `useOptimistic`, `useFormStatus`, and `useActionState` for improved UX and state management.
+- Use **`useTransition`** to prevent UI lag during state updates.
+- Minimize client JavaScript by keeping state in Server Components.
+
+## **5. Styling with Tailwind v4 & Shadcn UI**
+- Use **Tailwind CSS** for styling (avoid inline styles).
+- Use **Shadcn UI** components for consistent design.
+- Apply **mobile-first design** and use Tailwind’s new **container queries** for better component-driven responsiveness.
+- Utilize Tailwind's **3D transforms**, **expanded gradients**, and **new `@starting-style` variants** for improved UX.
+- Keep Tailwind class names structured logically (e.g., layout → spacing → typography → colors → effects).
+
+## **6. Performance Optimization**
+- Avoid excessive use of `useState`, `useEffect`, and `setState`.
+- Prefer **React Server Components** for data fetching.
+- Use **dynamic imports** (`next/dynamic`) for non-critical components.
+- Optimize images using Next.js `<Image>` with WebP format.
+- Wrap expensive components inside `Suspense`.
+- Use **ISR (Incremental Static Regeneration)** or cache strategies where applicable.
+- Use **Turbopack** for improved development performance.
+
+## **7. API & State Management**
+- Use **React Query** or **SWR** for data fetching.
+- Use **Zustand or Jotai** for lightweight state management.
+- Use `nuqs` for managing URL search parameters.
+- Replace client-heavy state management with **React Server Actions** whenever possible.
+
+## **8. Code Formatting & Linting**
+- Use **Prettier** for formatting.
+- Use **ESLint with Next.js rules**.
+- Enforce linting before merging code.
+- Follow Next.js 15’s async request API rules (`await cookies()`, `await headers()`).
+
+## **9. Web Vitals, SEO & Accessibility**
+- Optimize **LCP** by preloading fonts and images.
+- Reduce **CLS** by setting explicit width & height attributes.
+- Improve **FID** by minimizing blocking scripts.
+- Use **robots.txt** and **sitemap.xml**.
+- Ensure accessibility (`aria-*`, keyboard navigation, high contrast colors).
+- Test with Lighthouse and Web Vitals tools.
+
+## **10. Key Guidelines**
+- Follow **Next.js documentation** for data fetching and routing.
+- Use `https://placekitten.com/` for placeholder images.
+- Keep component structure modular for scalability.
+- Use the **Shadcn CLI** (`npx shadcn add <component>`) to install UI components properly.
+- Keep **Shadcn components unmodified when possible** for easier updates.
+- Extend Shadcn UI components using `cva()` for flexible class variance.
+- Organize components by feature to maintain scalability.
+- Use **React’s new error boundaries and transitions** to improve UX.
+- Prioritize **progressive disclosure** (loading states, partial rendering) over blank screens.
+
+---
+
+## **📌 Summary Checklist**
+✅ You are an expert in **Next.js 15, React 19, Tailwind v4, and Shadcn UI**  
+✅ Use **TypeScript**, avoid `enum`  
+✅ Favor **Server Components**, limit `'use client'`  
+✅ Structure components in `/src/components`  
+✅ Apply **Tailwind CSS** and **Shadcn UI**  
+✅ Optimize performance with **dynamic imports**, ISR, and caching  
+✅ Use **React Query or SWR** for data fetching  
+✅ Follow **SEO & Web Vitals** best practices  
+✅ Implement **React 19 hooks** like `useOptimistic`, `useFormStatus`, and `useTransition`  
+✅ Stay updated with **Shadcn UI CLI for component management**  
+✅ Ensure accessibility, responsive design, and progressive loading UX  
+
+This guide ensures **high-quality, scalable, and maintainable** Next.js 15 applications. 🚀
+
