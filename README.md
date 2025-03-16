@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cloud Management Platform
+
+A modern cloud management platform built with Next.js 15, React 19, Tailwind CSS v4, and Shadcn UI.
+
+## Server Management MVP
+
+This MVP focuses on providing a comprehensive server management solution that works across multiple cloud providers. The application allows users to monitor, manage, and connect to their servers from a single unified interface.
+
+### Key Features
+
+- **Server Dashboard**: Overview of all servers with status indicators and resource usage metrics
+- **Server Details**: Detailed view of individual server information and performance metrics
+- **Terminal Access**: Web-based SSH terminal for direct server access
+- **File Management**: Browse, upload, download, and manage files on remote servers
+- **Database Management**: Manage databases, run SQL queries, and create backups
+- **Service Management**: Start, stop, and monitor services running on servers
+- **Performance Monitoring**: Real-time and historical performance metrics with alerts
+- **Multi-Provider Support**: Works with AWS, DigitalOcean, GCP, and other cloud providers
+
+### Pages Implemented
+
+1. **Server List** (`/servers/page.tsx`): Lists all servers with filtering and sorting options
+2. **Server Detail** (`/servers/[id]/page.tsx`): Overview of a specific server
+3. **Terminal** (`/servers/[id]/terminal/page.tsx`): Web-based SSH terminal
+4. **File Management** (`/servers/[id]/files/page.tsx`): File browser and manager
+5. **Database Management** (`/servers/[id]/databases/page.tsx`): Database management interface
+6. **Service Management** (`/servers/[id]/services/page.tsx`): Service control panel
+7. **Monitoring** (`/servers/[id]/monitoring/page.tsx`): Performance monitoring dashboard
+8. **Server Connection** (`/servers/connect/page.tsx`): Interface to connect to new servers
+
+## Technology Stack
+
+- **Framework**: Next.js 15 with App Router
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS v4
+- **Components**: Shadcn UI
+- **Icons**: Lucide React
+- **State Management**: React Hooks (useState, useContext)
+- **TypeScript**: For type safety and better developer experience
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Structure
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `/app`: Next.js App Router pages and layouts
+- `/components`: Reusable UI components
+- `/lib`: Utility functions and helpers
+- `/public`: Static assets
+- `/types`: TypeScript type definitions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Future Enhancements
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Real-time server metrics using WebSockets
+- Integration with more cloud providers
+- Automated server provisioning
+- Cost optimization recommendations
+- Team collaboration features
+- Role-based access control
+- Notification system for alerts
+- Mobile application for on-the-go management
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

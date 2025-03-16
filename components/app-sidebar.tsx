@@ -13,14 +13,9 @@ import {
   Server,
   Settings,
   Shield,
-  Users,
-  Cpu,
-  Globe,
-  Layers,
-  BarChart,
-  Lock,
-  Zap,
+  type LucideIcon
 } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -37,7 +32,17 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarInset,
+  SidebarProvider as SidebarContextProvider,
 } from "@/components/ui/sidebar"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 
 // Sample data for the cloud management platform
 const data = {
@@ -112,140 +117,67 @@ const data = {
       title: "Dashboard",
       url: "/dashboard",
       icon: Home,
-      isActive: true,
-      items: [
-        {
-          title: "Overview",
-          url: "/dashboard",
-        },
-        {
-          title: "Resource Usage",
-          url: "/dashboard/resources",
-        },
-        {
-          title: "Cost Analysis",
-          url: "/dashboard/costs",
-        },
-      ],
+      items: []
     },
     {
-      title: "Compute",
-      url: "/compute",
-      icon: Cpu,
+      title: "Servers",
+      url: "/servers",
+      icon: Server,
       items: [
         {
-          title: "Virtual Machines",
-          url: "/compute/vms",
+          title: "All Servers",
+          url: "/servers",
         },
         {
-          title: "Kubernetes",
-          url: "/compute/kubernetes",
-        },
-        {
-          title: "Serverless",
-          url: "/compute/serverless",
-        },
-        {
-          title: "Auto Scaling",
-          url: "/compute/auto-scaling",
-        },
-      ],
-    },
-    {
-      title: "Networking",
-      url: "/networking",
-      icon: Network,
-      items: [
-        {
-          title: "VPC & Subnets",
-          url: "/networking/vpc",
-        },
-        {
-          title: "Load Balancers",
-          url: "/networking/load-balancers",
-        },
-        {
-          title: "DNS Management",
-          url: "/networking/dns",
-        },
-        {
-          title: "Firewalls",
-          url: "/networking/firewalls",
-        },
-        {
-          title: "CDN",
-          url: "/networking/cdn",
-        },
-      ],
-    },
-    {
-      title: "Storage",
-      url: "/storage",
-      icon: HardDrive,
-      items: [
-        {
-          title: "Object Storage",
-          url: "/storage/object",
-        },
-        {
-          title: "Block Storage",
-          url: "/storage/block",
-        },
-        {
-          title: "File Storage",
-          url: "/storage/file",
-        },
-        {
-          title: "Backups",
-          url: "/storage/backups",
-        },
-      ],
+          title: "Connect Server",
+          url: "/servers/connect",
+        }
+      ]
     },
     {
       title: "Databases",
-      url: "/databases",
+      url: "/servers/databases",
       icon: Database,
       items: [
         {
-          title: "Relational",
-          url: "/databases/relational",
+          title: "All Databases",
+          url: "/servers/databases",
         },
         {
-          title: "NoSQL",
-          url: "/databases/nosql",
+          title: "Backups",
+          url: "/servers/backups",
+        }
+      ]
+    },
+    {
+      title: "Storage",
+      url: "/servers/files",
+      icon: HardDrive,
+      items: [
+        {
+          title: "File Manager",
+          url: "/servers/files",
         },
         {
-          title: "Caching",
-          url: "/databases/caching",
-        },
-        {
-          title: "Data Warehouses",
-          url: "/databases/warehouses",
-        },
-      ],
+          title: "Backups",
+          url: "/servers/backups",
+        }
+      ]
     },
     {
       title: "Monitoring",
-      url: "/monitoring",
+      url: "/servers/monitoring",
       icon: Activity,
       items: [
         {
-          title: "Metrics",
-          url: "/monitoring/metrics",
-        },
-        {
-          title: "Logs",
-          url: "/monitoring/logs",
+          title: "Overview",
+          url: "/servers/monitoring",
         },
         {
           title: "Alerts",
-          url: "/monitoring/alerts",
-        },
-        {
-          title: "Health Checks",
-          url: "/monitoring/health",
-        },
-      ],
+          url: "/servers/alerts",
+        }
+      ]
     },
     {
       title: "Security",
@@ -253,45 +185,14 @@ const data = {
       icon: Shield,
       items: [
         {
-          title: "Identity & Access",
-          url: "/security/iam",
+          title: "SSH Keys",
+          url: "/security/ssh-keys",
         },
         {
-          title: "Encryption",
-          url: "/security/encryption",
-        },
-        {
-          title: "Compliance",
-          url: "/security/compliance",
-        },
-        {
-          title: "Security Groups",
-          url: "/security/groups",
-        },
-      ],
-    },
-    {
-      title: "Billing",
-      url: "/billing",
-      icon: CreditCard,
-      items: [
-        {
-          title: "Cost Explorer",
-          url: "/billing/costs",
-        },
-        {
-          title: "Budgets",
-          url: "/billing/budgets",
-        },
-        {
-          title: "Invoices",
-          url: "/billing/invoices",
-        },
-        {
-          title: "Payment Methods",
-          url: "/billing/payment-methods",
-        },
-      ],
+          title: "Firewall",
+          url: "/security/firewall",
+        }
+      ]
     },
     {
       title: "Settings",
@@ -299,27 +200,139 @@ const data = {
       icon: Settings,
       items: [
         {
-          title: "Account",
-          url: "/settings/account",
+          title: "General",
+          url: "/settings",
         },
         {
-          title: "API Keys",
-          url: "/settings/api-keys",
+          title: "Providers",
+          url: "/settings/providers",
         },
         {
-          title: "Preferences",
-          url: "/settings/preferences",
-        },
-        {
-          title: "Notifications",
-          url: "/settings/notifications",
-        },
-      ],
-    },
+          title: "Billing",
+          url: "/settings/billing",
+        }
+      ]
+    }
   ],
 }
 
+// Define the navigation items type
+type NavigationItem = {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  items: {
+    title: string;
+    url: string;
+  }[];
+};
+
 export function AppSidebar() {
+  const pathname = usePathname();
+  
+  const navigation: NavigationItem[] = [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: Home,
+      items: []
+    },
+    {
+      title: "Servers",
+      url: "/servers",
+      icon: Server,
+      items: [
+        {
+          title: "All Servers",
+          url: "/servers",
+        },
+        {
+          title: "Connect Server",
+          url: "/servers/connect",
+        }
+      ]
+    },
+    {
+      title: "Databases",
+      url: "/servers/databases",
+      icon: Database,
+      items: [
+        {
+          title: "All Databases",
+          url: "/servers/databases",
+        },
+        {
+          title: "Backups",
+          url: "/servers/backups",
+        }
+      ]
+    },
+    {
+      title: "Storage",
+      url: "/servers/files",
+      icon: HardDrive,
+      items: [
+        {
+          title: "File Manager",
+          url: "/servers/files",
+        },
+        {
+          title: "Backups",
+          url: "/servers/backups",
+        }
+      ]
+    },
+    {
+      title: "Monitoring",
+      url: "/servers/monitoring",
+      icon: Activity,
+      items: [
+        {
+          title: "Overview",
+          url: "/servers/monitoring",
+        },
+        {
+          title: "Alerts",
+          url: "/servers/alerts",
+        }
+      ]
+    },
+    {
+      title: "Security",
+      url: "/security",
+      icon: Shield,
+      items: [
+        {
+          title: "SSH Keys",
+          url: "/security/ssh-keys",
+        },
+        {
+          title: "Firewall",
+          url: "/security/firewall",
+        }
+      ]
+    },
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
+      items: [
+        {
+          title: "General",
+          url: "/settings",
+        },
+        {
+          title: "Providers",
+          url: "/settings/providers",
+        },
+        {
+          title: "Billing",
+          url: "/settings/billing",
+        }
+      ]
+    }
+  ];
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -341,9 +354,11 @@ export function AppSidebar() {
               </SidebarMenuItem>
             ))}
             <SidebarMenuItem>
-              <SidebarMenuButton className="text-sidebar-foreground/70">
-                <Plus className="text-sidebar-foreground/70" />
-                <span>Add Provider</span>
+              <SidebarMenuButton asChild>
+                <a href="/providers/add">
+                  <Plus className="text-sidebar-foreground/70" />
+                  <span>Add Provider</span>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -353,11 +368,19 @@ export function AppSidebar() {
         <NavProjects projects={data.projects} />
         
         {/* Main Navigation */}
-        <NavMain items={data.navigation} />
+        <NavMain items={navigation} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
   )
+}
+
+export function SidebarProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <SidebarContextProvider>
+      {children}
+    </SidebarContextProvider>
+  );
 }
